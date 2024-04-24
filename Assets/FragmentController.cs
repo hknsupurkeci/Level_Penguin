@@ -53,5 +53,12 @@ public class FragmentController : MonoBehaviour
             obs.IsMoving = false;
             // Burada engelin aktiflik durumunu ayarlayabilirsiniz
         }
+        foreach (SawObstacleMovoment obs in FindObjectsOfType<SawObstacleMovoment>())
+        {
+            obs.obstacle.transform.position = obs.StartPosObstacle;
+            obs.IsMoving = false;
+            obs.CurrentIndex = 0;
+            // Burada engelin aktiflik durumunu ayarlayabilirsiniz
+        }
     }
 }
