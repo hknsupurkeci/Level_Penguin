@@ -5,7 +5,6 @@ public class FragmentController : MonoBehaviour
     public GameObject fragmentPrefab; // Parça prefabý
     public int fragmentsPerSide = 3; // Bir kenardaki parça sayýsý
 
-    private GameObject[] fragments;
     private Vector3 originalScale;
 
     public CheckPoints checkPointController;
@@ -13,7 +12,6 @@ public class FragmentController : MonoBehaviour
     void Start()
     {
         originalScale = transform.localScale;
-        fragments = new GameObject[fragmentsPerSide * fragmentsPerSide];
     }
 
     public void Disassemble()
@@ -26,7 +24,6 @@ public class FragmentController : MonoBehaviour
                 fragment.transform.localScale = originalScale / fragmentsPerSide;
                 Vector2 direction = new Vector2(x - fragmentsPerSide / 2, y - fragmentsPerSide / 2).normalized;
                 fragment.GetComponent<Rigidbody2D>().AddForce(direction * 5f, ForceMode2D.Impulse);
-                fragments[x * fragmentsPerSide + y] = fragment;
             }
         }
         gameObject.SetActive(false);
@@ -35,9 +32,9 @@ public class FragmentController : MonoBehaviour
 
     public void StartReassemble()
     {
-        foreach (GameObject fragment in fragments)
+        foreach (GameObject piece in GameObject.FindGameObjectsWithTag("PlayerPiece"))
         {
-            Destroy(fragment);
+            Destroy(piece);
         }
         // engellerin posizyonunu sýfýrlar
         RestartGame();
