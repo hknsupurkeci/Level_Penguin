@@ -57,5 +57,9 @@ public class FragmentController : MonoBehaviour
             obs.CurrentIndex = 0;
             // Burada engelin aktiflik durumunu ayarlayabilirsiniz
         }
+        foreach(ChangeScale obs in FindObjectsOfType<ChangeScale>())
+        {
+            obs.IsMoving = false;
+        }
     }
 }
