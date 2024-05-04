@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Ground
   - Obstackle
+  - PlayerPiece
+  - Wall
   layers:
   - Default
   - TransparentFX

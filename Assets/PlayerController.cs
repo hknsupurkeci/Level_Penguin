@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float rotationSpeed = 150f; // Karakterin dönme hýzýný belirleyen parametre
     private Rigidbody2D rb;
     private bool isGrounded = true;
+    private bool isWall = false;
 
     public static int activeCheckPointId;
 
@@ -56,18 +57,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Duvara temas
+        if (collision.gameObject.tag == "Wall")
+        {
+            // wall false ise bir kerelik duvardan atlayabilecek daha sonra isWall sadece ground deðdiðinde false olacaðý için tekrardan zýplayamayacak.
+            if(!isWall)
+            {
+                isGrounded = true;
+            }
+            isWall = true;
+        }
         // Zemin ile temasý kontrol et
         if (collision.gameObject.tag == "Ground")
         {
             speed = firstSpeed;
             isGrounded = true;
+            isWall = false;
             transform.rotation = Quaternion.identity;  // Karakter yere temas ettiðinde rotasyonu sýfýrla
         }
         if (collision.gameObject.tag == "Obstackle")
         {
             // karakter parçalanma ve ilgili checkpointe gitme
             gameObject.GetComponent<FragmentController>().Disassemble();
-
+            // eðer karakter ölürse otomatik olarak yer çekimi normale dönecek.
+            rb.gravityScale = 2;
+            gravityFlag = 1;
             Debug.Log("dead");
         }
     }
