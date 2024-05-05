@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
         firstSpeed = speed;
         rb = GetComponent<Rigidbody2D>();
         rb.gravityScale = 2;  // Yer çekimi kuvvetini artýrarak daha gerçekçi bir düþüþ saðlýyoruz
+
     }
 
     void Update()
@@ -34,6 +35,9 @@ public class PlayerController : MonoBehaviour
         // Zýplama kontrolü
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
+            Debug.Log(UnityEngine.Random.Range(0, 2));
+            // Zýplama sesini çal
+            SoundsManager.Instance.PlaySound(SoundsManager.Instance.jumpSounds[UnityEngine.Random.Range(0,2)], 0.2f);
             rb.velocity = new Vector2(rb.velocity.x, jumpForce * gravityFlag); // Doðrudan y ekseninde hýz vererek zýplama
             speed = isJumpSpeed;
             isGrounded = false;
@@ -77,6 +81,8 @@ public class PlayerController : MonoBehaviour
         }
         if (collision.gameObject.tag == "Obstackle")
         {
+            // ölüm sesi
+            SoundsManager.Instance.PlaySound(SoundsManager.Instance.deadSound, 0.2f);
             // karakter parçalanma ve ilgili checkpointe gitme
             gameObject.GetComponent<FragmentController>().Disassemble();
             // eðer karakter ölürse otomatik olarak yer çekimi normale dönecek.

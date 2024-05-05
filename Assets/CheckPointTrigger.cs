@@ -13,6 +13,8 @@ public class CheckPointTrigger : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
+            // checkpoint sound
+            SoundsManager.Instance.PlaySound(SoundsManager.Instance.checkpointSound);
             if (PlayerController.activeCheckPointId < CheckPointId)
             {
                 PlayerController.activeCheckPointId = CheckPointId;

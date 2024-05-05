@@ -44,6 +44,7 @@ public class FragmentController : MonoBehaviour
     }
     void RestartGame()
     {
+        // Tüm engelleri start pozisyonlarýna döndür.
         foreach (ObstacleMovement obs in FindObjectsOfType<ObstacleMovement>())
         {
             obs.obstacle.transform.position = obs.StartPosObstacle;
