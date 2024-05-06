@@ -62,5 +62,9 @@ public class FragmentController : MonoBehaviour
         {
             obs.IsMoving = false;
         }
+        foreach(TransparencyController obs in FindObjectsOfType<TransparencyController>())
+        {
+            obs.OnPlayerDeath();
+        }
     }
 }
